@@ -1,0 +1,2 @@
+city1 = "https://www.otodom.pl/sprzedaz/mieszkanie/katowice/?search%5Bdescription%5D=1&search%5Bdist%5D=0&search%5Bsubregion_id%5D=306&search%5Bcity_id%5D=172"
+city2 = "https://www.otodom.pl/sprzedaz/mieszkanie/krakow  /?search%5Bdescription%5D=1&search%5Bdist%5D=0&search%5Bsubregion_id%5D=410&search%5Bcity_id%5D=38"
