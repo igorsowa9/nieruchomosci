@@ -33,7 +33,7 @@ print("Ilość głównych itemów: " + str(len(items)) + "\n")
 
 # print(item.prettify())
 item = items[0]
-
+print(item.prettify())
 title = item.find(class_="offer-item-title")
 address_str = item.find(class_="text-nowrap hidden-xs")
 rooms_str = item.find(class_="offer-item-rooms hidden-xs")
@@ -41,12 +41,7 @@ price_str = item.find(class_="offer-item-price")
 area_str = item.find(class_="hidden-xs offer-item-area")
 price_per_meter_str = item.find(class_="hidden-xs offer-item-price-per-m")
 footer_str = item.find(class_="params-small clearfix hidden-xs")
-
-print(item.find_all('figure'))
-
-print(item.prettify())
-
-sys.exit()
+tracking_id = item.attrs["data-tracking-id"]
 
 print("Tytuł: " + str(title.contents[0]))
 address = address_str.contents[0].replace("Mieszkanie na sprzedaż: ", "")
@@ -64,26 +59,9 @@ if footer.find("Oferta prywatna") == -1:
     print("Oferta prywatna: NIE")
 else:
     print("Oferta prywatna: TAK")
+print("Tracking_id: " + str(tracking_id))
 
 
 sys.exit()
 # Remove bottom links
-soup.find(class_='AlphaNav').decompose()
-
-# Pull all text from the BodyText div
-artist_name_list = soup.find(class_='BodyText')
-
-# Pull text from all instances of <a> tag within BodyText div
-artist_name_list_items = artist_name_list.find_all('a')
-
-# Create for loop to print out all artists' names
-for artist_name in artist_name_list_items:
-    print(artist_name.prettify())
-
-# Use .contents to pull out the <a> tag’s children
-for artist_name in artist_name_list_items:
-    names = artist_name.contents[0]
-    links = 'https://web.archive.org' + artist_name.get('href')
-    print(names)
-    print(links)
-
+# soup.find(class_='AlphaNav').decompose()
