@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from pprint import pprint as pp
 import sys
 import re
+import json
 
 def find_between(s, first, last ):
     try:
@@ -11,6 +12,19 @@ def find_between(s, first, last ):
         return s[start:end]
     except ValueError:
         return ""
+
+maps_service = False
+def google_maps_request(origin, destination, departure_time, mode):
+    maps_url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=" + \
+               "&departure_time=" + str(departure_time) + \
+               "&mode=" + str(mode) + \
+               "&origins=" + str(origin) + \
+               "&destinations=" + str(destination) + \
+               "&language=en" \
+               "&key=AIzaSyBmAvUynv808Tsa7fzv2t5Pcbdt7PlMqK4"
+
+    page_maps = requests.get(maps_url)
+    return json.loads(page_maps.text)
 
 
 miasto = "katowice"
@@ -33,7 +47,7 @@ print("Ilość głównych itemów: " + str(len(items)) + "\n")
 
 # print(item.prettify())
 item = items[0]
-print(item.prettify())
+# print(item.prettify())
 title = item.find(class_="offer-item-title")
 address_str = item.find(class_="text-nowrap hidden-xs")
 rooms_str = item.find(class_="offer-item-rooms hidden-xs")
@@ -61,8 +75,20 @@ else:
     print("Oferta prywatna: TAK")
 print("Tracking_id: " + str(tracking_id))
 
-
-sys.exit()
 # Remove bottom links
 # soup.find(class_='AlphaNav').decompose()
-# r
+
+if maps_service:
+
+    origin = address
+    destination = "katowice rondo"
+    mode = "bicycling"
+    departure_time = 1540193400  # departure_time = 22.10.2018 7:30 (pon)
+
+    jsonmsg1 = google_maps_request(address, "katowice rondo", 1540193400, "driving")
+    jsonmsg2 = google_maps_request(address, "katowice rondo", 1540193400, "bicycling")
+
+    pp(jsonmsg1)
+    pp(jsonmsg2)
+
+
